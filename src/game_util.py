@@ -63,6 +63,7 @@ def points_from_cards(cards) -> int:
     for card in cards:
         if card.suite is Suite.Hearts:
             points += 1
-        elif card.suite is Suite.SPADES and card.face is Face.QUEEN
+        elif card.suite is Suite.SPADES and card.face is Face.QUEEN:
+            points += 8
 
     return points
