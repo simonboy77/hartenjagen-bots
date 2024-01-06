@@ -1,9 +1,10 @@
 from enum import Enum
+from enum import IntEnum
 from dataclasses import dataclass
 
-GameMode = Enum('GameMode', ['GOING_UP', 'GOING_DOWN'])
+GameMode = Enum('GameMode', ['GOING_UP', 'GOING_DOWN', 'FINISHED'])
 Suite = Enum('Suite', ['HEARTS', 'SPADES', 'DIAMONDS', 'CLUBS'])
-Face = Enum('Face', ['SEVEN', 'EIGHT', 'NINE', 'TEN', 'JACK', 'QUEEN', 'KING', 'ACE'])
+Face = IntEnum('Face', ['SEVEN', 'EIGHT', 'NINE', 'TEN', 'JACK', 'QUEEN', 'KING', 'ACE'])
 
 @dataclass
 class Card:
@@ -37,10 +38,10 @@ def is_legal_card(hand, card, playedCards, turn) -> bool:
         if contains_suite(hand, playedSuite):
             return card.suite is playedSuite
         else:
-            if contains_suite(hand, Suite.Hearts):
-                return card.suite is Suite.Hearts
-            elif contains_card(hand, Card(Suite.Spades, Face.QUEEN)):
-                return card == Card(Suite.Spades, Face.QUEEN)
+            if contains_suite(hand, Suite.HEARTS):
+                return card.suite is Suite.HEARTS
+            elif contains_card(hand, Card(Suite.SPADES, Face.QUEEN)):
+                return card == Card(Suite.SPADES, Face.QUEEN)
             else:
                 return True
     elif turn == 0:
@@ -54,14 +55,13 @@ def get_legal_cards(hand, playedCards, turn) -> list:
         if is_legal_card(hand, card, playedCards, turn):
             legalCards.append(card)
 
-    print("legalCards: " + str(legalCards))
     return legalCards
 
 def points_from_cards(cards) -> int:
     points = 0
 
     for card in cards:
-        if card.suite is Suite.Hearts:
+        if card.suite is Suite.HEARTS:
             points += 1
         elif card.suite is Suite.SPADES and card.face is Face.QUEEN:
             points += 8
