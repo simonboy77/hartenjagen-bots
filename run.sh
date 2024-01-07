@@ -4,4 +4,5 @@ python3 -m venv ./venv
 source venv/bin/activate
 pip install -r python_packages.txt
 
-python3 src/main.py
+python3 collect_brains.py
+python3 game/main.py
